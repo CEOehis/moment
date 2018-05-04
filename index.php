@@ -162,6 +162,10 @@
 			}
 
 			onChange(e) {
+				if(e.target.value.length > 200) {
+					alert('Todo\'s shouldn\'t be this long ;)');
+					return
+				}
 				this.setState({
 					todo: e.target.value
 				})
@@ -183,13 +187,13 @@
 				return (
 					<div>
 						<form onSubmit={this.submit}>
-							<label htmlFor="todo-input">What is the one thing you must accomplish today?</label>
+							<label htmlFor="todo-input">What is the ONE thing you must accomplish today?</label>
 							<input id="todo-input" onChange={this.onChange} value={this.state.todo} type="text" className={this.state.todoAdded ? 'none' : 'block'} />
 						</form>
 
 						{this.state.todoAdded ?
 						<ul>
-							<p>today</p>
+							<p>Today I shall do:</p>
 							<li className="todo-item">{this.state.todo}<i onClick={this.closeTodo} className="close">x</i></li>
 						</ul> : ''}
 					</div>
