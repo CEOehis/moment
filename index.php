@@ -83,6 +83,18 @@
 		ul p{
 			margin-top: 0;
 		}
+
+		.close {
+			margin-left: 50px;
+			border: 1px solid white;
+			background: rgba(255, 255, 255, 0.4);
+			padding: 0 5px;
+		}
+
+		.close:hover {
+			cursor: pointer;
+			background: rgba(255, 255, 255, 0.8);
+		}
 	</style>
 </head>
 <body>
@@ -141,6 +153,7 @@
 
 				this.onChange = this.onChange.bind(this);
 				this.submit = this.submit.bind(this);
+				this.closeTodo = this.closeTodo.bind(this);
 
 				this.state = {
 					todo: '',
@@ -160,6 +173,12 @@
 				})
 				e.preventDefault();
 			}
+
+			closeTodo() {
+				this.setState({
+					todoAdded: false
+				})
+			}
 			render() {
 				return (
 					<div>
@@ -171,7 +190,7 @@
 						{this.state.todoAdded ?
 						<ul>
 							<p>today</p>
-							<li className="todo-item">{this.state.todo}</li>
+							<li className="todo-item">{this.state.todo}<i onClick={this.closeTodo} className="close">x</i></li>
 						</ul> : ''}
 					</div>
 				);
