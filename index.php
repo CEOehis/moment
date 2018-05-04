@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 	<title>Moment</title>
 	<style>
@@ -42,7 +45,7 @@
 			margin: 0;
 		}
 
-		.todo p {
+		.todo label {
 			font-size: 25px;
 			margin: 0;
 		}
@@ -56,6 +59,29 @@
 			border-bottom: 2px solid white;
 			color: white;
 			padding-left: 15px;
+		}
+
+		.todo-item {
+			/* height: 50px; */
+			font-size: 20px;
+			/* padding-top: 10px; */
+		}
+
+		.none {
+			display: none;
+		}
+
+		.block {
+			display: block;
+		}
+
+		ul {
+			margin: 0;
+			padding-top: 5px;
+		}
+
+		ul p{
+			margin-top: 0;
 		}
 	</style>
 </head>
@@ -106,9 +132,53 @@
 			<p class="greeting"><?php echo $greeting?>.</p>
 		</div>
 		<div class="todo">
-			<p>What is the one thing you must accomplish today?</p>
-			<input type="text" />
 		</div>
 	</div>
+	<script type="text/babel">
+		class Todo extends React.Component {
+			constructor() {
+				super();
+
+				this.onChange = this.onChange.bind(this);
+				this.submit = this.submit.bind(this);
+
+				this.state = {
+					todo: '',
+					todoAdded: false
+				}
+			}
+
+			onChange(e) {
+				this.setState({
+					todo: e.target.value
+				})
+			}
+
+			submit(e) {
+				this.setState({
+					todoAdded: true
+				})
+				e.preventDefault();
+			}
+			render() {
+				return (
+					<div>
+						<form onSubmit={this.submit}>
+							<label htmlFor="todo-input">What is the one thing you must accomplish today?</label>
+							<input id="todo-input" onChange={this.onChange} value={this.state.todo} type="text" className={this.state.todoAdded ? 'none' : 'block'} />
+						</form>
+
+						{this.state.todoAdded ?
+						<ul>
+							<p>today</p>
+							<li className="todo-item">{this.state.todo}</li>
+						</ul> : ''}
+					</div>
+				);
+			}
+		}
+
+		ReactDOM.render(<Todo />, document.querySelector('.todo'));
+	</script>
 </body>
 </html>
