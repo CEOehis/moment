@@ -19,7 +19,7 @@
 		body {
 			background: black;
       background: linear-gradient(rgba(255,255,255,0.1),rgba(0,0,0,1)),
-        url("./bg.jpg");
+        url("./images/bg.jpg");
 			background-size: cover;
 			background-position: center;
 			/* height: 100%; */
